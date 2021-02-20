@@ -3,11 +3,24 @@ pipeline {
     agent any
         
     stages {
-        stage('Sonarqube Analysis'){
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
             steps {
-                sh 'sonar-scanner -Dsonar.projectKey=vuejs-todo -Dsonar.sources=. -Dsonar.host.url=https://sonar.mezi.space -Dsonar.login=da96b4ffd33ac4b312ce133ae4d7deed0f4bc6e6'
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
+        // stage('Sonarqube Analysis'){
+        //     steps {
+        //         sh 'sonar-scanner -Dsonar.projectKey=vuejs-todo -Dsonar.sources=. -Dsonar.host.url=https://sonar.mezi.space -Dsonar.login=da96b4ffd33ac4b312ce133ae4d7deed0f4bc6e6'
+        //     }
+        // }
         // stage('Build Docker Image') {
         //     steps {
         //         sh 'docker build -t meziaris/gateway:$BUILD_NUMBER .'
