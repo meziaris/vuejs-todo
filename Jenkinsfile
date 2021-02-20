@@ -3,7 +3,7 @@ pipeline {
     agent any
         
     stages {
-        stage('Sonarqube') {
+        stage('Sonarqube Analysis') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'
             }
