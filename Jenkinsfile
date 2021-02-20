@@ -8,9 +8,8 @@ pipeline {
                 scannerHome = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh "echo ${SONAR_RUNNER_HOME}"
-                    // sh "${SONAR_RUNNER_HOME}/bin/sonar-scanner"
+                withSonarQubeEnv('sonar-server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
