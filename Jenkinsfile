@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vuejs"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vuejs-todo"
                 }
             }
         }
