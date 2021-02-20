@@ -11,16 +11,8 @@ pipeline {
                 withSonarQubeEnv('sonar-server') {
                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vuejs"
                 }
-                // timeout(time: 10, unit: 'MINUTES') {
-                //     waitForQualityGate abortPipeline: true
-                // }
             }
         }
-        // stage('Sonarqube Analysis'){
-        //     steps {
-        //         sh 'sonar-scanner -Dsonar.projectKey=vuejs-todo -Dsonar.sources=. -Dsonar.host.url=https://sonar.mezi.space -Dsonar.login=da96b4ffd33ac4b312ce133ae4d7deed0f4bc6e6'
-        //     }
-        // }
         // stage('Build Docker Image') {
         //     steps {
         //         sh 'docker build -t meziaris/gateway:$BUILD_NUMBER .'
