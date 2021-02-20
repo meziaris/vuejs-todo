@@ -13,6 +13,13 @@ pipeline {
                 }
             }
         }
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         // stage('Build Docker Image') {
         //     steps {
         //         sh 'docker build -t meziaris/gateway:$BUILD_NUMBER .'
